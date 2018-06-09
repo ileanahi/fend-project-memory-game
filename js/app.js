@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const openCards = [];
+let openCards = [];
 
 
 
@@ -42,7 +42,13 @@ let deck = document.querySelectorAll(".card");
 
 deck.forEach(function(card) {
     card.addEventListener("click", function(evt) {
-        card.classList.add("open", "show");
+        openCards.push(card);
+        if (openCards.length > 2) {
+            //hide
+        } else {
+            card.classList.add("open", "show");
+
+        }
     });
 });
 
