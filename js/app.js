@@ -42,22 +42,26 @@ let deck = document.querySelectorAll(".card");
 
 deck.forEach(function(card) {
     card.addEventListener("click", function(evt) {
-        openCards.push(card);
-        if (openCards.length > 2) {
-            //hide
-        } else {
+        if (!card.classList.contains("open") || !card.classList.contains("show")) {
+            openCards.push(card);
             card.classList.add("open", "show");
 
+            if (openCards.length >= 2) {
+
+                setTimeout(function() {
+                    openCards.forEach(function(card) {
+                        card.classList.remove("open", "show");
+                    });
+                    openCards = [];
+                }, 1000);
+            }
         }
     });
 });
 
-function openCard() {
+//function matchCards() {
 
-}
 
-function matchCards() {
-
-}
+//}
 
 document.addEventListener('click', displayCard);
