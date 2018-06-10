@@ -1,8 +1,21 @@
 /*
  * Create a list that holds all of your cards
  */
-let openCards = [];
+let cards = ['fa-diamond', 'fa-diamond',
+    'fa-paper-plane-o', 'fa-paper-plane-o',
+    'fa-anchor', 'fa-anchor',
+    'fa-bolt', 'fa-bolt',
+    'fa-cube', 'fa-cube',
+    'fa-leaf', 'fa-leaf',
+    'fa-bicycle', 'fa-bicycle',
+    'fa-bomb', 'fa-bomb'
+];
 
+function generateCard(card) {
+    return '<li class="card"><i class="fa $(card)"></i></li>'
+};
+
+let openCards = [];
 
 
 /*
@@ -11,6 +24,12 @@ let openCards = [];
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+function startGame() {
+
+}
+
+// startGame();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -42,10 +61,13 @@ let deck = document.querySelectorAll(".card");
 
 deck.forEach(function(card) {
     card.addEventListener("click", function(evt) {
-        if (!card.classList.contains("open") || !card.classList.contains("show")) {
+        if (!card.classList.contains("open") && !card.classList.contains("show") && !card.classList.contains("match")) {
             openCards.push(card);
             card.classList.add("open", "show");
 
+            // Check if cards match
+
+            // If cards don't match
             if (openCards.length >= 2) {
 
                 setTimeout(function() {
