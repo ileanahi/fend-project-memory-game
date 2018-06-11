@@ -17,6 +17,7 @@ function generateCard(card) {
 
 let openCards = [];
 let moves = 0;
+let movesCounter = document.querySelector('.moves');
 
 /*
  * Display the cards on the page
@@ -31,7 +32,8 @@ function startGame() {
         return generateCard(card);
     });
     deck.innerHTML = cardHTML.join('');
-    console.log(deck.innerHTML);
+    movesCounter.innerText = moves;
+
 }
 
 startGame();
@@ -84,10 +86,12 @@ deck.forEach(function(card) {
                             card.classList.remove("open", "show");
                         });
                         openCards = [];
-                    }, 1000);
+                    }, 350);
                 }
             }
         }
+        moves++;
+        movesCounter.innerText = moves;
     });
 });
 
