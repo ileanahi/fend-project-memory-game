@@ -12,7 +12,7 @@ let cards = ['fa-diamond', 'fa-diamond',
 ];
 
 function generateCard(card) {
-    return '<li class="card"><i class="fa $(card)"></i></li>'
+    return `<li class="card"><i class="fa ${card}"></i></li>`;
 };
 
 let openCards = [];
@@ -26,10 +26,15 @@ let openCards = [];
  */
 
 function startGame() {
-
+    let deck = document.querySelector('.deck');
+    let cardHTML = shuffle(cards).map(function(card) {
+        return generateCard(card);
+    });
+    deck.innerHTML = cardHTML.join('');
+    console.log(deck.innerHTML);
 }
 
-// startGame();
+startGame();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -85,5 +90,3 @@ deck.forEach(function(card) {
 
 
 //}
-
-document.addEventListener('click', displayCard);
