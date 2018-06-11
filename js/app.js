@@ -12,11 +12,11 @@ let cards = ['fa-diamond', 'fa-diamond',
 ];
 
 function generateCard(card) {
-    return `<li class="card"><i class="fa ${card}"></i></li>`;
+    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 };
 
 let openCards = [];
-
+let moves = 0;
 
 /*
  * Display the cards on the page
@@ -70,17 +70,22 @@ deck.forEach(function(card) {
             openCards.push(card);
             card.classList.add("open", "show");
 
-            // Check if cards match
+            if (openCards.length === 2) {
+                if (openCards[0].dataset.card === openCards[1].dataset.card) {
+                    openCards[0].classList.add("open", "show", "match");
+                    openCards[1].classList.add("open", "show", "match");
 
-            // If cards don't match
-            if (openCards.length >= 2) {
+                    openCards = []
 
-                setTimeout(function() {
-                    openCards.forEach(function(card) {
-                        card.classList.remove("open", "show");
-                    });
-                    openCards = [];
-                }, 1000);
+                } else {
+
+                    setTimeout(function() {
+                        openCards.forEach(function(card) {
+                            card.classList.remove("open", "show");
+                        });
+                        openCards = [];
+                    }, 1000);
+                }
             }
         }
     });
