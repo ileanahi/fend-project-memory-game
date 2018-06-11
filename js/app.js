@@ -18,6 +18,7 @@ function generateCard(card) {
 let openCards = [];
 let moves = 0;
 let movesCounter = document.querySelector('.moves');
+let restart = document.querySelector('.restart');
 
 /*
  * Display the cards on the page
@@ -34,6 +35,9 @@ function startGame() {
     deck.innerHTML = cardHTML.join('');
     movesCounter.innerText = moves;
 
+    restart.addEventListener('click', function() {
+        location.reload();
+    })
 }
 
 startGame();
@@ -67,6 +71,10 @@ function shuffle(array) {
 let deck = document.querySelectorAll(".card");
 
 deck.forEach(function(card) {
+    matchCards(card);
+});
+
+function matchCards(card) {
     card.addEventListener("click", function(evt) {
         if (!card.classList.contains("open") && !card.classList.contains("show") && !card.classList.contains("match")) {
             openCards.push(card);
@@ -93,9 +101,5 @@ deck.forEach(function(card) {
         moves++;
         movesCounter.innerText = moves;
     });
-});
 
-//function matchCards() {
-
-
-//}
+}
