@@ -35,6 +35,7 @@ function startGame() {
     deck.innerHTML = cardHTML.join('');
     movesCounter.innerText = moves;
 
+    matchCards(cards);
     restart.addEventListener('click', function() {
         location.reload();
     })
@@ -68,38 +69,36 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-let deck = document.querySelectorAll(".card");
 
-deck.forEach(function(card) {
-    matchCards(card);
-});
 
 function matchCards(card) {
-    card.addEventListener("click", function(evt) {
-        if (!card.classList.contains("open") && !card.classList.contains("show") && !card.classList.contains("match")) {
-            openCards.push(card);
-            card.classList.add("open", "show");
+    let deck = document.querySelectorAll(".card");
+    deck.forEach(function(card) {
+        card.addEventListener("click", function(evt) {
+            if (!card.classList.contains("open") && !card.classList.contains("show") && !card.classList.contains("match")) {
+                openCards.push(card);
+                card.classList.add("open", "show");
 
-            if (openCards.length === 2) {
-                if (openCards[0].dataset.card === openCards[1].dataset.card) {
-                    openCards[0].classList.add("open", "show", "match");
-                    openCards[1].classList.add("open", "show", "match");
+                if (openCards.length === 2) {
+                    if (openCards[0].dataset.card === openCards[1].dataset.card) {
+                        openCards[0].classList.add("open", "show", "match");
+                        openCards[1].classList.add("open", "show", "match");
 
-                    openCards = []
+                        openCards = []
 
-                } else {
+                    } else {
 
-                    setTimeout(function() {
-                        openCards.forEach(function(card) {
-                            card.classList.remove("open", "show");
-                        });
-                        openCards = [];
-                    }, 350);
+                        setTimeout(function() {
+                            openCards.forEach(function(card) {
+                                card.classList.remove("open", "show");
+                            });
+                            openCards = [];
+                        }, 350);
+                    }
                 }
             }
-        }
-        moves++;
-        movesCounter.innerText = moves;
+            moves++;
+            movesCounter.innerText = moves;
+        });
     });
-
 }
