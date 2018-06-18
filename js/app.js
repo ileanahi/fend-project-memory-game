@@ -1,4 +1,12 @@
 /*
+ * TO-DO: Remove event listener from cards
+ * Start a timer
+ * Star counter
+ * Win pop up
+ */
+
+
+/*
  * Create a list that holds all of your cards
  */
 let cards = ['fa-diamond', 'fa-diamond',
@@ -11,6 +19,7 @@ let cards = ['fa-diamond', 'fa-diamond',
     'fa-bomb', 'fa-bomb'
 ];
 
+// Create HTML for cards
 function generateCard(card) {
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 };
@@ -20,7 +29,7 @@ let moves = 0;
 let movesCounter = document.querySelector('.moves');
 let restart = document.querySelector('.restart');
 let deckContainer = document.querySelector('.deck');
-
+let stars = document.querySelector('.stars');
 
 /*
  * Display the cards on the page
@@ -30,6 +39,7 @@ let deckContainer = document.querySelector('.deck');
  */
 
 function startGame() {
+    // Shuffle cards and create deck
     let cardHTML = shuffle(cards).map(function(card) {
         return generateCard(card);
     });
@@ -70,14 +80,18 @@ function shuffle(array) {
  */
 
 
+
 function matchCards(card) {
     let deck = document.querySelectorAll(".card");
     deck.forEach(function(card) {
         card.addEventListener("click", function(evt) {
+
+            // If cards don't have open, show, or match, display it and add it to the list of open cards
             if (!card.classList.contains("open") && !card.classList.contains("show") && !card.classList.contains("match")) {
                 openCards.push(card);
                 card.classList.add("open", "show");
 
+                // If the cards have the same data set, match them
                 if (openCards.length === 2) {
                     if (openCards[0].dataset.card === openCards[1].dataset.card) {
                         openCards[0].classList.add("open", "show", "match");
@@ -86,7 +100,7 @@ function matchCards(card) {
                         openCards = []
 
                     } else {
-
+                        // Turn them back over and empty the list
                         setTimeout(function() {
                             openCards.forEach(function(card) {
                                 card.classList.remove("open", "show");
@@ -96,14 +110,35 @@ function matchCards(card) {
                     }
                 }
             }
+
+            // Increase move count
             moves++;
             movesCounter.innerText = moves;
+
+            // Change stars based on moves
+            if (moves <= 45) {
+                stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+            } else if (moves > 45 && moves <= 55) {
+                stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+            } else {
+                stars.innerHTML = '<li><i class="fa fa-star"></i></li>'
+            }
         });
     });
 }
 
+/* function stars() {
+    if (moves <= 45) {
+        stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+    } else if (moves > 45 && moves <= 55) {
+        stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+    } else {
+        stars.innerHTML = '<li><i class="fa fa-star"></i></li>'
+    }
+} */
 
 restart.addEventListener('click', function() {
+    // Regenerate deck
     while (deckContainer.firstChild) {
         deckContainer.removeChild(deckContainer.firstChild);
     }
