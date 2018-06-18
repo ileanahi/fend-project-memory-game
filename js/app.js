@@ -127,7 +127,8 @@ function matchCards(card) {
     });
 }
 
-/* function stars() {
+/* function stars(moves) {
+    // Change stars based on moves
     if (moves <= 45) {
         stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
     } else if (moves > 45 && moves <= 55) {
@@ -142,6 +143,9 @@ restart.addEventListener('click', function() {
     while (deckContainer.firstChild) {
         deckContainer.removeChild(deckContainer.firstChild);
     }
+    // Reset Moves
     moves = 0;
+    // Reset Stars
+    stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
     startGame();
 });
