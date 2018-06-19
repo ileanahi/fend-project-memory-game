@@ -30,6 +30,7 @@ let movesCounter = document.querySelector('.moves');
 let restart = document.querySelector('.restart');
 let deckContainer = document.querySelector('.deck');
 let stars = document.querySelector('.stars');
+let matched = 0;
 
 /*
  * Display the cards on the page
@@ -47,7 +48,6 @@ function startGame() {
     movesCounter.innerText = moves;
 
     matchCards(cards);
-
 }
 
 startGame();
@@ -66,6 +66,29 @@ function shuffle(array) {
     }
 
     return array;
+}
+
+function modalWindow() {
+    // Get the modal
+    let modal = document.getElementById('modal');
+
+    // Get modal content
+    let modalContent = document.querySelector('.modal-content');
+
+    // Display modal
+    modal.style.display = "block";
+
+    // Set content to be displayed
+    modalContent.innerHTML =
+        "Congratulations! " + `You completed this game in ${moves} moves!`
+
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 }
 
 /*
@@ -97,7 +120,8 @@ function matchCards(card) {
                         openCards[0].classList.add("open", "show", "match");
                         openCards[1].classList.add("open", "show", "match");
 
-                        openCards = []
+                        openCards = [];
+                        matched += 2;
 
                     } else {
                         // Turn them back over and empty the list
@@ -109,11 +133,17 @@ function matchCards(card) {
                         }, 350);
                     }
                 }
+
             }
+
 
             // Increase move count
             moves++;
             movesCounter.innerText = moves;
+
+            if (matched === 16) {
+                modalWindow();
+            }
 
             // Change stars based on moves
             if (moves <= 45) {
@@ -127,7 +157,7 @@ function matchCards(card) {
     });
 }
 
-/* function stars(moves) {
+/* function stars() {
     // Change stars based on moves
     if (moves <= 45) {
         stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
