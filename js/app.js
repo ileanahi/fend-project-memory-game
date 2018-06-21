@@ -1,8 +1,6 @@
 /*
  * TO-DO: Remove event listener from cards
  * Start a timer
- * Star counter
- * Win pop up
  */
 
 
@@ -31,6 +29,10 @@ let restart = document.querySelector('.restart');
 let deckContainer = document.querySelector('.deck');
 let stars = document.querySelector('.stars');
 let matched = 0;
+let timer = document.querySelector('.timer');
+let time = 0;
+let startTime = 0;
+
 
 /*
  * Display the cards on the page
@@ -68,6 +70,7 @@ function shuffle(array) {
     return array;
 }
 
+
 function modalWindow() {
     // Get the modal
     let modal = document.getElementById('modal');
@@ -79,8 +82,8 @@ function modalWindow() {
     modal.style.display = "block";
 
     // Set content to be displayed
-    modalContent.innerHTML =
-        "Congratulations! " + `You completed this game in ${moves} moves!`
+    modalContent.innerHTML = "<ul class='stars'>" + stars.innerHTML + "</ul>" + "<h2>Congratulations!</h2>" +
+        `<p>You completed this game in ${moves} moves!</p>`;
 
 
     // When the user clicks anywhere outside of the modal, close it
@@ -141,10 +144,6 @@ function matchCards(card) {
             moves++;
             movesCounter.innerText = moves;
 
-            if (matched === 16) {
-                modalWindow();
-            }
-
             // Change stars based on moves
             if (moves <= 45) {
                 stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
@@ -153,20 +152,14 @@ function matchCards(card) {
             } else {
                 stars.innerHTML = '<li><i class="fa fa-star"></i></li>'
             }
+
+            if (matched === 16) {
+                modalWindow();
+            }
         });
     });
 }
 
-/* function stars() {
-    // Change stars based on moves
-    if (moves <= 45) {
-        stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-    } else if (moves > 45 && moves <= 55) {
-        stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-    } else {
-        stars.innerHTML = '<li><i class="fa fa-star"></i></li>'
-    }
-} */
 
 restart.addEventListener('click', function() {
     // Regenerate deck
@@ -175,6 +168,10 @@ restart.addEventListener('click', function() {
     }
     // Reset Moves
     moves = 0;
+
+    //Reset Matched
+    matched = 0;
+
     // Reset Stars
     stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
     startGame();
