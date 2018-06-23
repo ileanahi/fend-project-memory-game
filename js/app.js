@@ -84,7 +84,7 @@ function modalWindow() {
 
     // Set content to be displayed
     modalContent.innerHTML = "<ul class='stars'>" + stars.innerHTML + "</ul>" + "<h2>Congratulations!</h2>" +
-        `<p>You completed this game in ${moves} moves!</p>";
+        `<p>You completed this game in ${moves} moves and ${time} seconds!</p>` + "<p>Play again!</p>";
 
 
     // When the user clicks anywhere outside of the modal, close it
