@@ -40,6 +40,9 @@ let liveTimer = 0;
  *   - add each card's HTML to the page
  */
 
+/* Adapted from the FEND Presentation by Mike Wales
+ * https://www.youtube.com/watch?v=_rUH-sEs68Y
+ */
 function startGame() {
     // Shuffle cards and create deck
     let cardHTML = shuffle(cards).map(function(card) {
