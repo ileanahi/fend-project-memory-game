@@ -204,9 +204,11 @@ restart.addEventListener('click', function() {
     // Reset Time
     time = 0;
     timer.innerText = time;
+    clearTimer();
 
     // Reset Stars
     stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
 
     startGame();
+    timerFunc();
 });
