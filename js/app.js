@@ -30,8 +30,8 @@ let deckContainer = document.querySelector('.deck');
 let stars = document.querySelector('.stars');
 let matched = 0;
 let time = 0;
-let timeStart = 0;
-
+let timer = document.querySelector('.timer');
+let liveTimer = 0;
 
 /*
  * Display the cards on the page
@@ -50,15 +50,10 @@ function startGame() {
 
     matchCards(cards);
 
-    // Start timer
-    timeStart = 1;
 }
 
 startGame();
-
-if (timeStart === 1) {
-    timerFunc();
-}
+timerFunc();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -89,7 +84,7 @@ function modalWindow() {
 
     // Set content to be displayed
     modalContent.innerHTML = "<ul class='stars'>" + stars.innerHTML + "</ul>" + "<h2>Congratulations!</h2>" +
-        `<p>You completed this game in ${moves} moves!</p>`;
+        `<p>You completed this game in ${moves} moves!</p>";
 
 
     // When the user clicks anywhere outside of the modal, close it
@@ -160,8 +155,7 @@ function matchCards(card) {
             }
 
             if (matched === 16) {
-                timeStart = 0;
-
+                clearTimer();
                 modalWindow();
             }
         });
@@ -169,7 +163,7 @@ function matchCards(card) {
 }
 
 function increaseTime() {
-    let timer = document.querySelector('.timer');
+    //let timer = document.querySelector('.timer');
     time++;
     timer.innerText = time;
 
@@ -187,8 +181,13 @@ function increaseTime() {
     timer.innerText = minutesText + ":" + secondsText; */
 }
 
+
 function timerFunc() {
-    setInterval(increaseTime, 1000);
+    liveTimer = setInterval(increaseTime, 1000);
+}
+
+function clearTimer() {
+    clearInterval(liveTimer);
 }
 
 restart.addEventListener('click', function() {
@@ -204,8 +203,10 @@ restart.addEventListener('click', function() {
 
     // Reset Time
     time = 0;
+    timer.innerText = time;
 
     // Reset Stars
     stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+
     startGame();
 });
