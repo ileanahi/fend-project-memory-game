@@ -29,9 +29,8 @@ let restart = document.querySelector('.restart');
 let deckContainer = document.querySelector('.deck');
 let stars = document.querySelector('.stars');
 let matched = 0;
-let timer = document.querySelector('.timer');
 let time = 0;
-let startTime = 0;
+let timeStart = 0;
 
 
 /*
@@ -50,9 +49,16 @@ function startGame() {
     movesCounter.innerText = moves;
 
     matchCards(cards);
+
+    // Start timer
+    timeStart = 1;
 }
 
 startGame();
+
+if (timeStart === 1) {
+    timerFunc();
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -154,12 +160,36 @@ function matchCards(card) {
             }
 
             if (matched === 16) {
+                timeStart = 0;
+
                 modalWindow();
             }
         });
     });
 }
 
+function increaseTime() {
+    let timer = document.querySelector('.timer');
+    time++;
+    timer.innerText = time;
+
+    /* let minutesCount = math.floor(time / 60);
+    let secondsCount = time % 60;
+
+    if (minutesCount < 10) {
+        let minutesText = "0" + minutesCount;
+    }
+
+    if (secondsCount = 10) {
+        let secondsText = "0" + secondsCount;
+    }
+
+    timer.innerText = minutesText + ":" + secondsText; */
+}
+
+function timerFunc() {
+    setInterval(increaseTime, 1000);
+}
 
 restart.addEventListener('click', function() {
     // Regenerate deck
@@ -171,6 +201,9 @@ restart.addEventListener('click', function() {
 
     //Reset Matched
     matched = 0;
+
+    // Reset Time
+    time = 0;
 
     // Reset Stars
     stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
