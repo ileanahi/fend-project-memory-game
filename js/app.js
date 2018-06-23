@@ -1,10 +1,4 @@
 /*
- * TO-DO: Remove event listener from cards
- * Start a timer
- */
-
-
-/*
  * Create a list that holds all of your cards
  */
 let cards = ['fa-diamond', 'fa-diamond',
@@ -146,12 +140,13 @@ function matchCards(card) {
 
             // Increase move count
             moves++;
+            // Update moves text
             movesCounter.innerText = moves;
 
             // Change stars based on moves
-            if (moves <= 45) {
+            if (moves <= 50) {
                 stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-            } else if (moves > 45 && moves <= 55) {
+            } else if (moves > 50 && moves <= 65) {
                 stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
             } else {
                 stars.innerHTML = '<li><i class="fa fa-star"></i></li>'
@@ -166,8 +161,8 @@ function matchCards(card) {
 }
 
 function increaseTime() {
-    //let timer = document.querySelector('.timer');
     time++;
+    // Update time
     timer.innerText = time;
 
     /* let minutesCount = math.floor(time / 60);
@@ -185,10 +180,12 @@ function increaseTime() {
 }
 
 
+// Increase time every second
 function timerFunc() {
     liveTimer = setInterval(increaseTime, 1000);
 }
 
+// Stop time
 function clearTimer() {
     clearInterval(liveTimer);
 }
@@ -201,7 +198,7 @@ restart.addEventListener('click', function() {
     // Reset Moves
     moves = 0;
 
-    //Reset Matched
+    //Reset Matched Cards
     matched = 0;
 
     // Reset Time
@@ -212,6 +209,8 @@ restart.addEventListener('click', function() {
     // Reset Stars
     stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
 
+    // Start game
     startGame();
+    // Start timer
     timerFunc();
 });
