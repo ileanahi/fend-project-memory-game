@@ -109,53 +109,52 @@ function matchCards(card) {
     let deck = document.querySelectorAll(".card");
     deck.forEach(function(card) {
         card.addEventListener("click", function(evt) {
+            if (!card.classList.contains("open")) {
+                // If cards don't have open, show, or match, display it and add it to the list of open cards
+                if (!card.classList.contains("open") && !card.classList.contains("show") && !card.classList.contains("match")) {
+                    openCards.push(card);
+                    card.classList.add("open", "show");
 
-            // If cards don't have open, show, or match, display it and add it to the list of open cards
-            if (!card.classList.contains("open") && !card.classList.contains("show") && !card.classList.contains("match")) {
-                openCards.push(card);
-                card.classList.add("open", "show");
+                    // If the cards have the same data set, match them
+                    if (openCards.length === 2) {
+                        if (openCards[0].dataset.card === openCards[1].dataset.card) {
+                            openCards[0].classList.add("open", "show", "match");
+                            openCards[1].classList.add("open", "show", "match");
 
-                // If the cards have the same data set, match them
-                if (openCards.length === 2) {
-                    if (openCards[0].dataset.card === openCards[1].dataset.card) {
-                        openCards[0].classList.add("open", "show", "match");
-                        openCards[1].classList.add("open", "show", "match");
-
-                        openCards = [];
-                        matched += 2;
-
-                    } else {
-                        // Turn them back over and empty the list
-                        setTimeout(function() {
-                            openCards.forEach(function(card) {
-                                card.classList.remove("open", "show");
-                            });
                             openCards = [];
-                        }, 350);
+                            matched += 2;
+
+                        } else {
+                            // Turn them back over and empty the list
+                            setTimeout(function() {
+                                openCards.forEach(function(card) {
+                                    card.classList.remove("open", "show");
+                                });
+                                openCards = [];
+                            }, 350);
+                        }
                     }
+
                 }
 
-            }
+                // Increase move count
+                moves++;
+                // Update moves text
+                movesCounter.innerText = moves;
 
-            // if (!card.classList.contains("open")) {
-            // Increase move count
-            moves++;
-            // Update moves text
-            movesCounter.innerText = moves;
-            //}
+                // Change stars based on moves
+                if (moves <= 50) {
+                    stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+                } else if (moves > 50 && moves <= 65) {
+                    stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
+                } else {
+                    stars.innerHTML = '<li><i class="fa fa-star"></i></li>'
+                }
 
-            // Change stars based on moves
-            if (moves <= 50) {
-                stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-            } else if (moves > 50 && moves <= 65) {
-                stars.innerHTML = '<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>';
-            } else {
-                stars.innerHTML = '<li><i class="fa fa-star"></i></li>'
-            }
-
-            if (matched === 16) {
-                clearTimer();
-                modalWindow();
+                if (matched === 16) {
+                    clearTimer();
+                    modalWindow();
+                }
             }
         });
     });
