@@ -137,11 +137,12 @@ function matchCards(card) {
 
             }
 
-
+            // if (!card.classList.contains("open")) {
             // Increase move count
             moves++;
             // Update moves text
             movesCounter.innerText = moves;
+            //}
 
             // Change stars based on moves
             if (moves <= 50) {
@@ -197,6 +198,9 @@ restart.addEventListener('click', function() {
     }
     // Reset Moves
     moves = 0;
+
+    // Reset Open Cards
+    openCards = [];
 
     //Reset Matched Cards
     matched = 0;
